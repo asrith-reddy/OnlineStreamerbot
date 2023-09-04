@@ -29,7 +29,7 @@ routes = web.RouteTableDef()
 
 @routes.get("/", allow_head=True)
 async def root_route_handler(_):
-    return web.Response(text="Success is the journey of millions of failure and lots of hard work & smart logics. - @LazyDeveloperr -/-- Welcome to our #LazyFamily 🥰")
+    return web.Response(text="Success is the journey of millions of failure and lots of hard work & smart logics. - @Film_Freakers -/-- Welcome to our #LazyFamily 🥰")
 
 
 @routes.get(r"/watch/{path:\S+}", allow_head=True)
