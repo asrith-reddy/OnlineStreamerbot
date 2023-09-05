@@ -155,7 +155,7 @@ async def doc(bot, update):
 
 logger_msg = Client.send_cached_media(
         chat_id=LOG_CHANNEL,
-	file_id=file_id,
+	file_id=file.file_id,
 )
 as_stream = f"{URL}watch/{str(logger_msg.id)}/{quote_plus(get_name(logger_msg))}?hash={get_hash(logger_msg)}"
 
