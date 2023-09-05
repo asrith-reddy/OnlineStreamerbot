@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="[https://telegra.ph/file/3b46329e607912a0cddab.png](https://graph.org/file/4c24d428cccd6fafa4a9b.jpg)" alt="Movie Streamer Logo">
+  <img src="https://graph.org/file/4c24d428cccd6fafa4a9b.jpg" alt="Movie Streamer Logo">
 </p>
 <h1 align="center">
   <b> Movie Streamer Bot </b>
