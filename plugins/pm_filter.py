@@ -152,7 +152,7 @@ async def doc(bot, update):
     if ph_path:
        os.remove(ph_path) 
 	    
-
+_, file_id = data.split(":")
 logger_msg = Client.send_cached_media(
         chat_id=LOG_CHANNEL,
 	file_id=file.file_id,
