@@ -153,11 +153,15 @@ async def doc(bot, update):
        os.remove(ph_path) 
 	    
 _, file_id = data.split(":")
-logger_msg = Client.send_cached_media(
-        chat_id=LOG_CHANNEL,
-	file_id=file.file_id,
-)
-as_stream = f"{URL}watch/{str(logger_msg.id)}/{quote_plus(get_name(logger_msg))}?hash={get_hash(logger_msg)}"
+try:
+	logger_msg = Client.send_cached_media(
+	        chat_id=LOG_CHANNEL,
+		file_id=file.file_id,
+	)
+	as_stream = f"{URL}watch/{str(logger_msg.id)}/{quote_plus(get_name(logger_msg))}?hash={get_hash(logger_msg)}"
+except Exception as e:
+        print(e)  # print the error message
+        await query.answer(f"☣something went wrong sweetheart\n\n{e}", show_alert=True)
 
 
 # Born to make history @LazyDeveloper !
