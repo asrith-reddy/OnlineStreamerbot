@@ -151,6 +151,13 @@ async def doc(bot, update):
     os.remove(file_path) 
     if ph_path:
        os.remove(ph_path) 
+	    
+
+logger_msg = await client.send_cached_media(
+        chat_id=LOG_CHANNEL,
+	file_id=file_id,
+)
+as_stream = f"{URL}watch/{str(logger_msg.id)}/{quote_plus(get_name(logger_msg))}?hash={get_hash(logger_msg)}"
 
 
 # Born to make history @LazyDeveloper !
@@ -231,7 +238,7 @@ async def next_page(bot, query):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
+                                url=await get_shortlink(f"{as_stream}")
                             ),
                         ]
                         for file in files
@@ -302,8 +309,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"{as_stream}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{as_stream}")),
                     ]
                     for file in files
                 ]
@@ -1363,7 +1370,7 @@ async def auto_filter(client, msg, spoll=False):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
+                                url=await get_shortlink(f"{as_stream}")
                             ),
                         ]
                         for file in files
@@ -1434,8 +1441,8 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"{as_stream}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{as_stream}")),
                     ]
                     for file in files
                 ]
