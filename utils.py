@@ -44,7 +44,7 @@ class temp(object):
     CURRENT=int(os.environ.get("SKIP", 2))
     CANCEL = False
     MELCOW = {}
-    U_NAME = None
+    U_NAME = Movie_streamer_bot
     B_NAME = None
     SETTINGS = {}
 
