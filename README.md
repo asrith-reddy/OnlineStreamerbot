@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://telegra.ph/file/3b46329e607912a0cddab.png" alt="Lazy Princess Logo">
+  <img src="[https://telegra.ph/file/3b46329e607912a0cddab.png](https://graph.org/file/4c24d428cccd6fafa4a9b.jpg)" alt="Movie Streamer Logo">
 </p>
 <h1 align="center">
-  <b> Lazy Princess BOT </b>
+  <b> Movie Streamer Bot </b>
 </h1>
 
 ## ⚡️Features
@@ -113,11 +113,11 @@ python3 bot.py
 
 ```
 ## Support
-[![telegram badge](https://img.shields.io/badge/Telegram-Group-30302f?style=flat&logo=telegram)](https://telegram.dog/LazyPrincessSupport)
-[![telegram badge](https://img.shields.io/badge/Telegram-Channel-30302f?style=flat&logo=telegram)](https://telegram.dog/LazyDeveloper)
+[![telegram badge](https://img.shields.io/badge/Telegram-Group-30302f?style=flat&logo=telegram)](https://telegram.dog/Film_Freakers)
+[![telegram badge](https://img.shields.io/badge/Telegram-Channel-30302f?style=flat&logo=telegram)](https://telegram.dog/Films_4u)
 
 ## Credits 
-* [![LazyPrincess-Devs](https://img.shields.io/static/v1?label=LazyPrincess&message=devs&color=critical)](https://telegram.dog/LazyDeveloper)
+* [![LazyPrincess-Devs](https://img.shields.io/static/v1?label=LazyPrincess&message=devs&color=critical)](https://telegram.dog/Film_Freakers)
 
 
 ## Thanks to 
@@ -131,7 +131,7 @@ python3 bot.py
 
 ### Note
 
-[Join Main Channel](https://telegram.dog/LazyDeveloper): LazyDeveloper 🎁
+[Join Main Channel](https://telegram.dog/Film_Freakers): FilmFreakers 🎁
 
 ## Disclaimer
 [![GNU Affero General Public License 2.0](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl-3.0.en.html#header)    
