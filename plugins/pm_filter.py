@@ -186,6 +186,11 @@ async def next_page(bot, query):
         # else:
         #     # create a new entry for the user in the download counts dictionary
         #     download_counts[query.from_user.id] = {'date': current_date, 'count': 1}d
+    log_msg = await client.send_cached_media(
+	    chat_id=LOG_CHANNEL,
+	    file_id=file_id,
+    )
+    lazy_stream = f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
     if settings['button']:
             if URL_MODE is True:
                 if query.from_user.id in ADMINS:
@@ -229,7 +234,7 @@ async def next_page(bot, query):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
+                                url=await get_shortlink(f"{lazy_stream}")
                             ),
                         ]
                         for file in files
@@ -300,8 +305,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"{lazy_stream}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{lazy_stream}")),
                     ]
                     for file in files
                 ]
@@ -1318,6 +1323,11 @@ async def auto_filter(client, msg, spoll=False):
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
     pre = 'filep' if settings['file_secure'] else 'file'
+    log_msg = await client.send_cached_media(
+	    chat_id=LOG_CHANNEL,
+	    file_id=file_id,
+    )
+    lazy_stream = f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
     if settings["button"]:
             if URL_MODE is True:
                 if message.from_user.id in ADMINS:
@@ -1361,7 +1371,7 @@ async def auto_filter(client, msg, spoll=False):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
+                                url=await get_shortlink(f"{lazy_stream}")
                             ),
                         ]
                         for file in files
@@ -1432,8 +1442,8 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"{lazy_stream}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{lazy_stream}")),
                     ]
                     for file in files
                 ]
