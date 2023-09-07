@@ -186,11 +186,11 @@ async def next_page(bot, query):
         # else:
         #     # create a new entry for the user in the download counts dictionary
         #     download_counts[query.from_user.id] = {'date': current_date, 'count': 1}d
-    log_msg = await client.send_cached_media(
-	    chat_id=LOG_CHANNEL,
-	    file_id=file_id,
-    )
-    lazy_stream = f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+    #log_msg = await client.send_cached_media(
+	#    chat_id=LOG_CHANNEL,
+	 #   file_id=file_id,
+    #)
+    lazy_stream = f"{URL}watch/{str(file.id)}/{quote_plus(get_name(file))}?hash={get_hash(file)}"
     if settings['button']:
             if URL_MODE is True:
                 if query.from_user.id in ADMINS:
@@ -1323,11 +1323,11 @@ async def auto_filter(client, msg, spoll=False):
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
     pre = 'filep' if settings['file_secure'] else 'file'
-    log_msg = await client.send_cached_media(
-	    chat_id=LOG_CHANNEL,
-	    file_id=file_id,
-    )
-    lazy_stream = f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+    #log_msg = await client.send_cached_media(
+	#    chat_id=LOG_CHANNEL,
+	 #   file_id=file_id,
+    #)
+    lazy_stream = f"{URL}watch/{str(file.id)}/{quote_plus(get_name(file))}?hash={get_hash(file)}"
     if settings["button"]:
             if URL_MODE is True:
                 if message.from_user.id in ADMINS:
