@@ -190,7 +190,7 @@ async def next_page(bot, query):
 	#    chat_id=LOG_CHANNEL,
 	 #   file_id=file_id,
     #)
-    lazys_stream = f"{URL}watch/{file.file_name}?hash={get_hash(file)}"
+    lazys_stream = f"https://film-freakers.koyeb.app/watch/{file.file_name}?hash={get_hash(file)}"
     if settings['button']:
             if URL_MODE is True:
                 if query.from_user.id in ADMINS:
@@ -1327,7 +1327,7 @@ async def auto_filter(client, msg, spoll=False):
 	#    chat_id=LOG_CHANNEL,
 	 #   file_id=file_id,
     #)
-    lazy_stream = f"{URL}watch/{file.file_name}?hash={get_hash(file)}"
+    lazy_stream = f"https://film-freakers.koyeb.app/watch/{file.file_name}?hash={get_hash(file)}"
     if settings["button"]:
             if URL_MODE is True:
                 if message.from_user.id in ADMINS:
