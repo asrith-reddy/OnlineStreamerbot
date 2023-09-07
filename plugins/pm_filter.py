@@ -190,7 +190,7 @@ async def next_page(bot, query):
 	#    chat_id=LOG_CHANNEL,
 	 #   file_id=file_id,
     #)
-    lazys_stream = f"https://film-freakers.koyeb.app/{file.file_name}"
+    # lazys_stream = f"watch/{str(file.id)}https://film-freakers.koyeb.app/{file.file_name}?hash={get_hash(file)}"
     if settings['button']:
             if URL_MODE is True:
                 if query.from_user.id in ADMINS:
@@ -234,7 +234,7 @@ async def next_page(bot, query):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"{lazys_stream}")
+                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
                             ),
                         ]
                         for file in files
@@ -305,8 +305,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"{lazys_stream}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{lazys_stream}")),
+                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
                     ]
                     for file in files
                 ]
@@ -1327,7 +1327,7 @@ async def auto_filter(client, msg, spoll=False):
 	#    chat_id=LOG_CHANNEL,
 	 #   file_id=file_id,
     #)
-    lazys_stream = f"https://film-freakers.koyeb.app/{file.file_name}"
+    #lazys_stream = f"https://film-freakers.koyeb.app/watch/{str(file.id)}{file.file_name}?hash={get_hash(file)}"
     if settings["button"]:
             if URL_MODE is True:
                 if message.from_user.id in ADMINS:
@@ -1371,7 +1371,7 @@ async def auto_filter(client, msg, spoll=False):
                         [
                             InlineKeyboardButton(
                                 text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"{lazys_stream}")
+                                url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
                             ),
                         ]
                         for file in files
@@ -1442,8 +1442,8 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"{lazys_stream}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"{lazys_stream}")),
+                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
                     ]
                     for file in files
                 ]
