@@ -1495,7 +1495,7 @@ async def auto_filter(client, msg, spoll=False):
     user = message.from_user
     full_name = user.first_name + " " + user.last_name if user.last_name else user.first_name
     waiting_message = await message.reply_text(f"Setting up your request {full_name}...")
-    await asyncio.sleep(1)
+    await asyncio.sleep(0)
     await waiting_message.delete()
     serve_message = await message.reply_text(f"🥰")
     fetching_message = await message.reply_text(f"Fetching details from server {full_name}...")
@@ -1612,7 +1612,7 @@ async def advantage_spell_chok(msg):
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
         k = await msg.reply("Hey Sona! The requested content is not available. Please check your spelling correctly in google, If it is correct, have some patience 🙂 - our admin will upload it as soon as possible \n")
-        await asyncio.sleep(10)
+        await asyncio.sleep(60)
         await k.delete()
         return
     SPELL_CHECK[msg.id] = movielist
