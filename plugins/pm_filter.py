@@ -1310,7 +1310,7 @@ async def auto_filter(client, msg, spoll=False):
                 
                 l = await message.reply_text(text=f"𝙷𝚎𝚢 `{message.from_user.first_name}` 😎,\nPlease check your spell. Search google for proper spelling.\n",
                                                                                                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("✪ Main Ch- ✪", url=f"https://t.me/{DEV_CHANNEL_USRNM}"), InlineKeyboardButton("✪ Insta ✪", url=f"https://www.instagram.com/film_freakers/")],[InlineKeyboardButton("╚»♥️ Thank You ♥️«╝", callback_data="close_data")]]))
-                await asyncio.sleep(12)
+                await asyncio.sleep(60)
                 await l.delete()    
                 if settings["spell_check"]:
                     return await advantage_spell_chok(msg)
@@ -1612,7 +1612,7 @@ async def advantage_spell_chok(msg):
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
         k = await msg.reply("Hey Sona! The requested content is not available. Please check your spelling correctly in google, If it is correct, have some patience 🙂 - our admin will upload it as soon as possible \n")
-        await asyncio.sleep(60)
+        await asyncio.sleep(10)
         await k.delete()
         return
     SPELL_CHECK[msg.id] = movielist
