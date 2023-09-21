@@ -15,6 +15,9 @@ import re
 import json
 import base64
 logger = logging.getLogger(__name__)
+from utils import get_shortlink
+from util.file_properties import get_name, get_hash, get_media_file_size
+from urllib.parse import quote_plus
 
 BATCH_FILES = {}
 
@@ -222,16 +225,46 @@ async def start(client, message):
     if not files_:
         pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         try:
-            # Create the inline keyboard button with callback_data
-            button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
-            # Create the inline keyboard markup with the button
-            keyboard = InlineKeyboardMarkup([[button]])
-            msg = await client.send_cached_media(
-                chat_id=message.from_user.id,
+            log_msg = await client.send_cached_media(
+                chat_id=LOG_CHANNEL,
                 file_id=file_id,
-                reply_markup=keyboard,
+                caption=f_caption
+            )
+    
+            lazy_stream =  f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+            lazy_download = f"{URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+
+            # Debug print statements
+            await log_msg.reply_text(
+                    text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{message.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {title}",
+                    quote=True,
+                    disable_web_page_preview=True,
+                    reply_markup=InlineKeyboardMarkup([
+                            [InlineKeyboardButton("Fast Download", url=lazy_download),  # we download Link
+                            InlineKeyboardButton('▶Stream online', url=lazy_stream)],  
+                            [InlineKeyboardButton("Short Link with Stream", url= await get_shortlink(lazy_stream))], 
+                            ])  # web stream Link with url shortner
+                    )
+            lazy_keyboard = InlineKeyboardMarkup([
+                                [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
+                                InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],  
+                            ])
+            print("lazy_stream 👉 :", lazy_stream)
+            print("lazy_download 👉 :", lazy_download)
+
+            await client.send_message(
+                chat_id=message.from_user.id,
+                text=f"Click below links to watch \n • **{title}**",
+                reply_markup=lazy_keyboard,
+            )
+
+            msg = await client.send_cached_media(
+                chat_id=LOG_CHANNEL,
+                file_id=file_id,
                 protect_content=True if pre == 'filep' else False,
+
                 )
+            
             filetype = msg.media
             file = getattr(msg, filetype.value)
             title = file.file_name
@@ -260,17 +293,38 @@ async def start(client, message):
     if f_caption is None:
         f_caption = f"{files.file_name}"
 
-    button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
-    # Create the inline keyboard markup with the button
-    keyboard = InlineKeyboardMarkup([[button]])
-    await client.send_cached_media(
-        chat_id=message.from_user.id,
+    log_msg = await client.send_cached_media(
+        chat_id=LOG_CHANNEL,
         file_id=file_id,
-        caption=f_caption,
-        reply_markup=keyboard,  # Use the created keyboard
-        protect_content=True if pre == 'filep' else False,
-        )
+        caption=f_caption
+    )
+    
+    lazy_stream =  f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+    lazy_download = f"{URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
 
+    # Debug print statements
+    await log_msg.reply_text(
+            text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{message.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {title}",
+            quote=True,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("Fast Download", url=lazy_download),  # we download Link
+                    InlineKeyboardButton('▶Stream online', url=lazy_stream)],  
+                    [InlineKeyboardButton("Short Link with Stream", url= await get_shortlink(lazy_stream))], 
+                    ])  # web stream Link with url shortner
+            )
+    lazy_keyboard = InlineKeyboardMarkup([
+                        [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
+                        InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],  
+                    ])
+    print("lazy_stream 👉 :", lazy_stream)
+    print("lazy_download 👉 :", lazy_download)
+    
+    await client.send_message(
+        chat_id=message.from_user.id,
+        text=f"Click below links to watch \n • **{title}**",
+        reply_markup=lazy_keyboard,
+    )
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
