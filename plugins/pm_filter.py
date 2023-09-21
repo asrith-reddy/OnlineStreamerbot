@@ -28,7 +28,6 @@ import os
 import humanize
 from PIL import Image
 import time
-from utils import get_shortlink
 from database.filters_mdb import (
     del_all,
     find_filter,
@@ -40,6 +39,7 @@ from util.file_properties import get_name, get_hash, get_media_file_size
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
+from utils import get_shortlink
 
 req_channel = REQ_CHANNEL
 BUTTONS = {}
@@ -232,10 +232,9 @@ async def next_page(bot, query):
                 else:
                     btn = [
                         [
-                            InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
-                            ),
+                        InlineKeyboardButton(
+                            text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                        ),
                         ]
                         for file in files
                     ]
@@ -305,8 +304,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}",url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
                     ]
                     for file in files
                 ]
@@ -618,18 +617,40 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
             else:
-                # Create the inline keyboard button with callback_data
-                button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
-                # Create the inline keyboard markup with the button
-                keyboard = InlineKeyboardMarkup([[button]])
-                await client.send_cached_media(
-                    chat_id=query.from_user.id,
+                log_msg = await client.send_cached_media(
+                    chat_id=LOG_CHANNEL,
                     file_id=file_id,
-                    caption=f_caption,
-                    reply_markup=keyboard,
+                    caption=f_caption
+                )
+                
+                lazy_stream =  f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+                lazy_download = f"{URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+
+                # Debug print statements
+                await log_msg.reply_text(
+                        text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{query.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {title}",
+                        quote=True,
+                        disable_web_page_preview=True,
+                        reply_markup=InlineKeyboardMarkup([
+                                [InlineKeyboardButton("Fast Download", url=lazy_download),  # we download Link
+                                InlineKeyboardButton('▶Stream online', url=lazy_stream)],  
+                                [InlineKeyboardButton("Short Link with Stream", url= await get_shortlink(lazy_stream))], 
+                                ])  # web stream Link with url shortner
+                        )
+                lazy_keyboard = InlineKeyboardMarkup([
+                                    [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
+                                    InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],  
+                                ])
+                print("lazy_stream 👉 :", lazy_stream)
+                print("lazy_download 👉 :", lazy_download)
+                
+                await client.send_message(
+                    chat_id=query.from_user.id,
+                    text=f"Click below links to watch \n • **{title}**",
+                    reply_markup=lazy_keyboard,
                     protect_content=True if ident == "filep" else False 
                 )
-                await query.answer('Requested file has been sent to you privately. Check PM sweetheart ❤', show_alert=True)
+                await query.answer('Requested file url has been sent to you privately. Check PM sweetheart ❤', show_alert=True)
         except UserIsBlocked:
             await query.answer('☣Unblock the bot sweetie!', show_alert=True)
         except PeerIdInvalid:
@@ -660,17 +681,43 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
-        # Create the inline keyboard button with callback_data
-        button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
-        # Create the inline keyboard markup with the button
-        keyboard = InlineKeyboardMarkup([[button]])
-        await client.send_cached_media(
-            chat_id=query.from_user.id,
+
+
+        log_msg = await client.send_cached_media(
+            chat_id=LOG_CHANNEL,
             file_id=file_id,
-            caption=f_caption,
-            reply_markup=keyboard,
-            protect_content=True if ident == 'checksubp' else False
+            caption=f_caption
         )
+    
+        lazy_stream =  f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+        lazy_download = f"{URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+
+        # Debug print statements
+        await log_msg.reply_text(
+                text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{query.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {title}",
+                quote=True,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("Fast Download", url=lazy_download),  # we download Link
+                        InlineKeyboardButton('▶Stream online', url=lazy_stream)],  
+                        [InlineKeyboardButton("Short Link with Stream", url= await get_shortlink(lazy_stream))], 
+                        ])  # web stream Link with url shortner
+                )
+        lazy_keyboard = InlineKeyboardMarkup([
+                            [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
+                            InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],  
+                        ])
+        print("lazy_stream 👉 :", lazy_stream)
+        print("lazy_download 👉 :", lazy_download)
+        
+        await client.send_message(
+            chat_id=query.from_user.id,
+            text=f"Click below links to watch \n • **{title}**",
+            reply_markup=lazy_keyboard,
+            protect_content=True if ident == 'checksubp' else False
+
+        )
+
     elif query.data == "pages":
         await query.answer()
     elif query.data == "start":
@@ -1369,36 +1416,14 @@ async def auto_filter(client, msg, spoll=False):
                     for file in files
                     ]
                 else:
-                    btn = []
-                    for file in files:
-                        try:
-                            log_msg = await client.send_cached_media(
-                                chat_id=REQ_CHANNEL,
-                                file_id=file.file_id,
-                                caption=file.file_name,
-                            )
-                            
-                            lazy_stream = await f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-                            # Debug print statements
-                            await log_msg.reply_text(
-                                    text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{message.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {file.file_name}",
-                                    quote=True,
-                                    disable_web_page_preview=True,
-                                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Short Link", url= await get_shortlink(lazy_stream)),  # we download Link
-                                                                        InlineKeyboardButton('▶Stream online', url=lazy_stream)]])  # web stream Link
-                                    )
-    
-                            print("lazy_stream:", lazy_stream)
-                            inline_button = [ InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                                url=await get_shortlink(lazy_stream)
-                            ) ]
-                            # Debug print statements
-                            print("Short Link:", await get_shortlink(lazy_stream))
-                            btn.append(inline_button)
-                        except Exception as e:
-                            print(e)
-                            # @LazyDeveloper !( another last of the star ! );
+                    btn = [
+                        [
+                            InlineKeyboardButton(
+                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                            ),
+                        ]
+                        for file in files
+                    ]
             else:
                 if message.from_user.id in ADMINS:
                     btn = [
@@ -1463,37 +1488,13 @@ async def auto_filter(client, msg, spoll=False):
                     for file in files
                 ]
             else:
-                btn = []
-                for file in files:
-                    try:
-                        log_msg = await client.send_cached_media(
-                            chat_id=REQ_CHANNEL,
-                            file_id=file.file_id,
-                            caption=file.file_name,
-                        )
-                        
-                        lazy_stream = await f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-                        # Debug print statements
-                        await log_msg.reply_text(
-                                text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{message.from_user.id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {file.file_name}",
-                                quote=True,
-                                disable_web_page_preview=True,
-                                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Short Link", url= await get_shortlink(lazy_stream)),  # we download Link
-                                                                    InlineKeyboardButton('▶Stream online', url=lazy_stream)]])  # web stream Link
-                                )
-
-                        print("lazy_stream:", lazy_stream)
-                        inline_button = [ InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                            url=await get_shortlink(lazy_stream)
-                        ) ]
-                        # Debug print statements
-                        print("Short Link:", await get_shortlink(lazy_stream))
-                        btn.append(inline_button)
-                    except Exception as e:
-                        print(e)
-                        # @LazyDeveloper !( another last of the star ! );
-                
+                btn = [
+                    [
+                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'{pre}#{file.file_id}',),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'{pre}#{file.file_id}',),
+                    ]
+                    for file in files
+                ]
         else:
             if message.form_user.id in ADMINS:
                 btn = [
