@@ -254,7 +254,7 @@ async def start(client, message):
 
             await client.send_message(
                 chat_id=message.from_user.id,
-                text=f"Click below links to watch \n • **{title}**",
+                text=f"Click below links to watch \n • **{f_caption}**",
                 reply_markup=lazy_keyboard,
             )
 
@@ -322,7 +322,7 @@ async def start(client, message):
     
     await client.send_message(
         chat_id=message.from_user.id,
-        text=f"Click below links to watch \n • **{title}**",
+        text=f"Click below links to watch \n • **{f_caption}**",
         reply_markup=lazy_keyboard,
     )
 
