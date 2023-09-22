@@ -646,7 +646,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 
                 await client.send_message(
                     chat_id=query.from_user.id,
-                    text=f"Click below links to watch \n • **{title}**",
+                    text=f"Click below links to watch \n • **{f_caption}**",
                     reply_markup=lazy_keyboard,
                     protect_content=True if ident == "filep" else False 
                 )
@@ -712,7 +712,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
         await client.send_message(
             chat_id=query.from_user.id,
-            text=f"Click below links to watch \n • **{title}**",
+            text=f"Click below links to watch \n • **{f_caption}**",
             reply_markup=lazy_keyboard,
             protect_content=True if ident == 'checksubp' else False
 
