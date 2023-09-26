@@ -233,7 +233,7 @@ async def next_page(bot, query):
                     btn = [
                         [
                         InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
+                            text=f"[{get_size(file.file_size)}] {file.file_name}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
                         ),
                         ]
                         for file in files
@@ -304,8 +304,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
                     ]
                     for file in files
                 ]
@@ -1419,7 +1419,7 @@ async def auto_filter(client, msg, spoll=False):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
+                                text=f"[{get_size(file.file_size)}] {file.file_name}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")
                             ),
                         ]
                         for file in files
@@ -1490,8 +1490,8 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=await (f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{file.file_name}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=await (f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}")),
                     ]
                     for file in files
                 ]
