@@ -233,7 +233,7 @@ async def next_page(bot, query):
                     btn = [
                         [
                         InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"
+                            text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
                         ),
                         ]
                         for file in files
@@ -304,8 +304,8 @@ async def next_page(bot, query):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"),
+                        InlineKeyboardButton(text=f"{file.file_name}", callback_data=f'files#{file.file_id}'),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f'files#{file.file_id}'),
                     ]
                     for file in files
                 ]
@@ -1421,7 +1421,7 @@ async def auto_filter(client, msg, spoll=False):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"
+                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
                             ),
                         ]
                         for file in files
@@ -1492,8 +1492,8 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 btn = [
                     [
-                        InlineKeyboardButton(text=f"{file.file_name}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", url=f"https://telegram.me/{BOT_USERNAME}?start=files_{file.file_id}"),
+                        InlineKeyboardButton(text=f"{file.file_name}", callback_data=f'files#{file.file_id}'),
+                        InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f'files#{file.file_id}'),
                     ]
                     for file in files
                 ]
@@ -1589,7 +1589,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"⚡Here is what i found for your query {search}"
+        cap = f"⚡Here is what i found for your query {search}\n[Click Here if you didnt get file](https://telegram.me/Movie_Streamer_bot?start=files)\n<b>@Movie_Streamer_bot</b>"
     if imdb and imdb.get('poster'):
         try:
             z = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
