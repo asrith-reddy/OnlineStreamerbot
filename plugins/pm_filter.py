@@ -640,7 +640,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 lazy_keyboard = InlineKeyboardMarkup([
                                     [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
                                     InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],
-			            [InlineKeyboardButton("Help", url=f"https://telegram.me/FF_Help/9")], 
+			           # [InlineKeyboardButton("Help", url=f"https://telegram.me/FF_Help/9")], 
                                 ])
                 print("lazy_stream 👉 :", lazy_stream)
                 print("lazy_download 👉 :", lazy_download)
@@ -707,7 +707,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         lazy_keyboard = InlineKeyboardMarkup([
                             [InlineKeyboardButton("Fast Download", url= await get_shortlink(lazy_download)),  # we download Link
                             InlineKeyboardButton('▶Stream online', url= await get_shortlink(lazy_stream))],
-		            [InlineKeyboardButton("Help", url=f"https://telegram.me/FF_Help/9")], 
+		            #[InlineKeyboardButton("Help", url=f"https://telegram.me/FF_Help/9")], 
                         ])
         print("lazy_stream 👉 :", lazy_stream)
         print("lazy_download 👉 :", lazy_download)
