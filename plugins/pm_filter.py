@@ -1589,7 +1589,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"⚡Here is what i found for your query <b>{search}<\b>\n<b>[Please start the bot to get files](https://telegram.me/Movie_Streamer_bot?start=Hi)</b>.\n@Movie_Streamer_bot"
+        cap = f"⚡Here is what i found for your query {search}\n<b>[Please start the bot to get files](https://telegram.me/Movie_Streamer_bot?start=Hi)</b>.\n@Movie_Streamer_bot"
     if imdb and imdb.get('poster'):
         try:
             z = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
