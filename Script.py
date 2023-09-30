@@ -1,6 +1,7 @@
 class script(object):
     START_TXT = """Hello {},
 Myself <a href=https://t.me/Movie_Streamer_bot>Streamer Bot</a>,\n\n<b>I'm Search Bot. I can share Movies and Series 😁.</b>\n\nAᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛᴏ sᴇᴇ ᴛʜᴇ ᴍᴀɢɪᴄ ᴏʀ ʀᴇᴀᴅ ᴍᴏʀᴇ ғʀᴏᴍ ᴛʜᴇ ᴍᴇɴᴜ ʙᴇʟᴏᴡ"""
+    LZTHMB_TEXT = """Hello {},
 Glad to see you here. It seems that you really love <a href=https://t.me/Film_Freakers >FilmFreakers's</a> work.\n\n<b>Thumbnail extracting</b> feature will be available soon, please join <a href=https://t.me/Films_4u>Dev Channel</a> and stay tuned for next <a href=https://t.me/Films_4u>update</a>.\n\n  🐞 Report Bug here: <a href=http://t.me/Films_4u>Films4u</a>
     """
     LZLINK_TEXT = """Hey {},
