@@ -19,7 +19,7 @@ BOT_TOKEN = environ['BOT_TOKEN']
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
-PICS = (environ.get('PICS', 'https://te.legra.ph/file/60a6f205d3754a2131dc0.jpg')).split()
+PICS = (environ.get('PICS', 'https://te.legra.ph/file/60a6f205d3754a2131dc0.jpg https://graph.org/file/4c24d428cccd6fafa4a9b.jpg')).split()
 
 # Admins, Channels & Users
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '').split()]
@@ -67,7 +67,7 @@ OPENAI_API = environ.get("OPENAI_API","")
 AI = is_enabled((environ.get("AI","False")), False)
 LAZY_AI_LOGS = int(environ.get("LAZY_AI_LOGS","")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of LazyPrincess ]
 # Requested Content template variables ---
-ADMIN_USRNM = environ.get('ADMIN_USRNM','real_heros') # WITHOUT @
+ADMIN_USRNM = environ.get('ADMIN_USRNM','Films_4u') # WITHOUT @
 MAIN_CHANNEL_USRNM = environ.get('MAIN_CHANNEL_USRNM','Film_Freakers') # WITHOUT @
 DEV_CHANNEL_USRNM = environ.get('DEV_CHANNEL_USRNM','Film_Freakers') # WITHOUT @
 LAZY_YT_HANDLE = environ.get('LAZY_YT_HANDLE','Film_Freakers')  # WITHOUT @ [  add only handle - don't add full url  ] 
@@ -83,7 +83,7 @@ LAZY_GROUPS = [int(lazy_groups) for lazy_groups in lazy_groups.split()] if lazy_
 my_users = [int(my_users) if id_pattern.search(my_users) else my_users for my_users in environ.get('MY_USERS', '').split()]
 MY_USERS = (my_users) if my_users else []
 
-
+BOT_USERNAME = environ.get('BOT_USERNAME' ,' ' )
 
 # Online Stream and Download
 PORT = int(environ.get('PORT', 8080))
@@ -125,7 +125,7 @@ if SELF_DELETE == "True":
 
 # Download Tutorial Button #
 DOWNLOAD_TEXT_NAME = "📥 HOW TO DOWNLOAD 📥"
-DOWNLOAD_TEXT_URL = "https://t.me/FF_Help"
+DOWNLOAD_TEXT_URL = "https://t.me/FF_Help/9"
 
 # Custom Caption Under Button #
 CAPTION_BUTTON = "Get Updates"
